@@ -10,15 +10,15 @@ public class ArrayQueueSize<T> implements Queue<T> {
     private int maxSize;
 
     public ArrayQueueSize(int size) {
-        data = new Object[size];
-        maxSize = size;
+        maxSize = size + 1; //one more for case where rear and front are same
+        data = new Object[maxSize];
         front = 0;
         rear = -1;
     }
 
     @Override
     public void insert(T elem) {
-        if(rear == maxSize -1) rear = -1;
+        if(rear == maxSize - 1) rear = -1;
         data[++rear] = elem;
     }
 
@@ -65,6 +65,10 @@ public class ArrayQueueSize<T> implements Queue<T> {
             result = rear - front + 1;
         }
 
+        if (rear < front) {
+            result = (maxSize - front) + rear + 1;
+        }
+
 
         return result;
     }
@@ -73,12 +77,12 @@ public class ArrayQueueSize<T> implements Queue<T> {
     public void display() {
         System.out.println("----- Display -----");
         System.out.println("Queue size: " + size());
-        System.out.println("Queue max size: " + maxSize);
+        System.out.println("Queue max size: " + (maxSize - 1));
         System.out.println("Rear index: " + rear);
         System.out.println("Front index: " + front);
         System.out.println("---------------");
 
-        for (int i = maxSize - 1; i > -1; i--) {
+        for (int i = maxSize - 2; i > -1; i--) {
             if (rear == front && front == i) {
                 System.out.println("[" + data[i] + "] <-- Front/Rear");
             }
