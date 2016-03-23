@@ -4,7 +4,7 @@ public class CalculatorTest {
     public static void main(String[] args) {
         StackBasedCalculator calculator = new StackBasedCalculator();
 
-        calculator.infixToPostfix("A + B – C");
+        calculator.infixToPostfix("14 + 7 - 3").display().evaluate();
 
     }
 }
